@@ -32,6 +32,6 @@
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground"
         android:scaleType="fitCenter"
-        android:src="@drawable/neon-green" />
+        android:src="@drawable/neon_green" />
 
 </android.support.wearable.view.BoxInsetLayout>
