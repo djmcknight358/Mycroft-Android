@@ -32,6 +32,6 @@
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground"
         android:scaleType="fitCenter"
-        android:src="@drawable/mycroft_logo" />
+        android:src="@drawable/neon-green" />
 
 </android.support.wearable.view.BoxInsetLayout>
