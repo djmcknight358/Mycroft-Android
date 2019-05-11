@@ -23,7 +23,7 @@
     <!-- These settings headers are only used on tablets. -->
     <header
         android:fragment="mycroft.ai.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/mycroft_logo_24dp"
+        android:icon="@drawable/neon_gecko"
         android:title="@string/pref_header_general" />
 
     <header

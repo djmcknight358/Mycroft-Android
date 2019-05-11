@@ -47,7 +47,7 @@ internal class MessageParser(private val message: String,
         // {"data": {"utterance": "There are only two hard problems in Computer Science: cache invalidation, naming things and off-by-one-errors."}, "type": "speak", "context": null}
         try {
             val obj = JSONObject(message)
-            if (obj.optString("type") == "speak") {
+            if (obj.optString("type") == "speak" && obj.optString("flac_filename") == "mobile") {
                 val ret = Utterance(obj.getJSONObject("data").getString("utterance"), UtteranceFrom.MYCROFT)
                 callback.call(ret)
             }
