@@ -61,7 +61,7 @@ import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQU
 import mycroft.ai.shared.wear.Constants.MycroftSharedConstants.MYCROFT_WEAR_REQUEST_MESSAGE
 
 class MainActivity : AppCompatActivity() {
-    private val logTag = "Mycroft"
+    private val logTag = "Neon"
     private val utterances = mutableListOf<Utterance>()
     private val reqCodeSpeechInput = 100
     private var maximumRetries = 1
@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ttsManager: TTSManager
     private lateinit var mycroftAdapter: MycroftAdapter
     private lateinit var wsip: String
+//    private lateinit var user: String
     private lateinit var sharedPref: SharedPreferences
     private lateinit var networkChangeReceiver: NetworkChangeReceiver
     private lateinit var wearBroadcastReceiver: BroadcastReceiver
@@ -218,7 +219,7 @@ class MainActivity : AppCompatActivity() {
                     // Log.i(TAG, s);
                     runOnUiThread(MessageParser(s, object : SafeCallback<Utterance> {
                         override fun call(param: Utterance) {
-                            addData(param)
+                            addData(param, true)
                         }
                     }))
                 }
@@ -236,10 +237,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun addData(mycroftUtterance: Utterance) {
+    private fun addData(mycroftUtterance: Utterance, speak: Boolean) {
         utterances.add(mycroftUtterance)
         mycroftAdapter.notifyItemInserted(utterances.size - 1)
-        if (voxswitch.isChecked) {
+        if (voxswitch.isChecked && speak) {
             ttsManager.addQueue(mycroftUtterance.utterance)
         }
         cardList.smoothScrollToPosition(mycroftAdapter.itemCount - 1)
@@ -325,7 +326,7 @@ class MainActivity : AppCompatActivity() {
     fun sendMessage(msg: String) {
         // let's keep it simple eh?
         //final String json = "{\"message_type\":\"recognizer_loop:utterance\", \"context\": null, \"metadata\": {\"utterances\": [\"" + msg + "\"]}}";
-        val json = "{\"data\": {\"utterances\": [\"$msg\"]}, \"type\": \"recognizer_loop:utterance\", \"context\": null, \"flac_filename\": mobile}"
+        val json = "{\"data\": {\"utterances\": [\"$msg\"], \"flac_filename\": \"mobile\"}, \"type\": \"recognizer_loop:utterance\", \"context\": null}"
 
         try {
             if (webSocketClient == null || webSocketClient!!.connection.isClosed) {
@@ -340,7 +341,7 @@ class MainActivity : AppCompatActivity() {
                 // Actions to do after 1 seconds
                 try {
                     webSocketClient!!.send(json)
-                    addData(Utterance(msg, UtteranceFrom.USER))
+                    addData(Utterance(msg, UtteranceFrom.USER), false)
                 } catch (exception: WebsocketNotConnectedException) {
                     showToast(resources.getString(R.string.websocket_closed))
                 }
@@ -421,8 +422,11 @@ class MainActivity : AppCompatActivity() {
     private fun loadPreferences() {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
 
+//        // get username
+//        user = sharedPref.getString( "user" , "mobile")
+
         // get mycroft-core ip address
-        wsip = sharedPref.getString("ip", "")
+        wsip = sharedPref.getString("ip", "64.34.186.92")
         if (wsip.isEmpty()) {
             // eep, show the settings intent!
             startActivity(Intent(this, SettingsActivity::class.java))

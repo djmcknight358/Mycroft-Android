@@ -32,6 +32,16 @@
         android:singleLine="true"
         android:title="@string/pref_title_default_ip" />
 
+    <!--<EditTextPreference-->
+        <!--android:capitalize="none"-->
+        <!--android:defaultValue="@string/pref_default_display_user"-->
+        <!--android:inputType="textCapWords"-->
+        <!--android:key="ip"-->
+        <!--android:maxLines="1"-->
+        <!--android:selectAllOnFocus="true"-->
+        <!--android:singleLine="true"-->
+        <!--android:title="@string/pref_title_default_user" />-->
+
     <SwitchPreference
         android:key="appReaderSwitch"
         android:title="@string/pref_title_app_reader_switch"

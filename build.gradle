@@ -25,10 +25,10 @@ allprojects {
         jcenter()
     }
 
-    ext.versionMajor = 1
-    ext.versionMinor = 0
+    ext.versionMajor = 0
+    ext.versionMinor = 1
     ext.versionPatch = 1
-    ext.versionClassifier = "SNAPSHOT"
+    ext.versionClassifier = "Alpha"
 
     project.ext {
         versionCode = ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
